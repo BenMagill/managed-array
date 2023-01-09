@@ -50,6 +50,19 @@ export class ManagedArray<T = any> {
     this.emptyIndexes.push(id);
   }
 
+  public update(id: number, newValue: T | Partial<T>): void {
+    const currentItem = this.items[id];
+    
+    if (typeof currentItem === 'object') {
+      this.items[id] = {
+        ...currentItem,
+        ...newValue,
+      };
+    } else {
+      this.items[id] = newValue as T;
+    }
+  }
+
   public forEach(cb: (item: T, id: number) => unknown): void {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
