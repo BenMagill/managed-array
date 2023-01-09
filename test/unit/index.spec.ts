@@ -26,6 +26,17 @@ describe('index', () => {
         expect(array.records).toEqual([1, 2, 3, 4]);
       });
     });
+    describe('recordsWithIds', () => {
+      it('will return an empty array', () => {
+        const array = new ManagedArray();
+        expect(array.recordsWithIds).toEqual([]);
+      });
+      it('will return an array with items', () => {
+        const array = new ManagedArray([1, 2, 3]);
+        array.add(4);
+        expect(array.recordsWithIds).toEqual([[0, 1], [1, 2], [2, 3], [3, 4]]);
+      });
+    });
     describe('add', () => {
       it('can add an item', () => {
         const array = new ManagedArray();

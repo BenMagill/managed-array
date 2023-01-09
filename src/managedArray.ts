@@ -20,6 +20,17 @@ export class ManagedArray<T = any> {
     return results;
   }
 
+  public get recordsWithIds(): [number, T][] {
+    const results: [number, T][] = [];
+    for (let i = 0; i < this.items.length; i++) {
+      const item = this.items[i];
+      if (item !== undefined) {
+        results.push([i, item]);
+      }
+    }
+    return results;
+  }
+
   // TODO: refactor?
   public add(items: T | T[]): void {
     if (Array.isArray(items)) {
@@ -34,12 +45,12 @@ export class ManagedArray<T = any> {
     }
   }
 
-  public remove(index: number): void {
-    this.items[index] = undefined;
-    this.emptyIndexes.push(index);
+  public remove(id: number): void {
+    this.items[id] = undefined;
+    this.emptyIndexes.push(id);
   }
 
-  public forEach(cb: (item: T, index: number) => unknown): void {
+  public forEach(cb: (item: T, id: number) => unknown): void {
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
       if (item !== undefined) {
@@ -48,7 +59,7 @@ export class ManagedArray<T = any> {
     }
   }
 
-  public map(cb: (item: T, index: number) => unknown): unknown[] {
+  public map(cb: (item: T, id: number) => unknown): unknown[] {
     const results = [];
     for (let i = 0; i < this.items.length; i++) {
       const item = this.items[i];
