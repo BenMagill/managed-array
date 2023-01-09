@@ -31,6 +31,10 @@ export class ManagedArray<T = any> {
     return results;
   }
 
+  public get(id: number): T | undefined {
+    return this.items[id];
+  }
+
   // TODO: refactor?
   public add(items: T | T[]): void {
     if (Array.isArray(items)) {
